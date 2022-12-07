@@ -1,0 +1,6 @@
+.env*
+!.env.tpl
+node_modules
+.vscode
+
+result

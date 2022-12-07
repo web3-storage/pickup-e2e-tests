@@ -1,0 +1,25 @@
+{
+  "name": "pickup-e2e-tests",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": "18.12"
+  },
+  "type": "module",
+  "scripts": {
+    "test:smoke": "node smoke.js",
+    "format": "standard --fix",
+    "lint": "standard"
+  },
+  "license": "(Apache-2.0 AND MIT)",
+  "description": "Elastic IPFS e2e test suite",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.223.0",
+    "@aws-sdk/client-s3": "3.223.0",
+    "@aws-sdk/lib-dynamodb": "3.223.0",
+    "axios": "1.2.0",
+    "commander": "9.4.1",
+    "dotenv": "16.0.3",
+    "standard": "17.0.0"
+  }
+}
