@@ -1,8 +1,8 @@
 # Pickup e2e test suite
 
-The `Elastic IPFS` e2e test suite provides a set of tools for e2e testing.
+The `Pickup` e2e test suite provides a set of tools for e2e testing.
 
-## e2e testing `bitswap-peer` service
+## e2e testing `pickup` service
 
 There is 1 test for `pickaup`: `smoke`.  
 
