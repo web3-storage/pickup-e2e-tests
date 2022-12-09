@@ -19,14 +19,14 @@ dynamoDbTable: 'staging-pickup-BasicV2',
 s3Bucket: 'staging-pickup-basicapistack-carbucketdae1e77a-1l11iof62g79t',
 s3BucketEndpoint: 'staging-pickup-basicapistack-carbucketdae1e77a-1l11iof62g79t.s3.us-east-2.amazonaws.com',
 apiUrl: 'https://staging.pickup.dag.haus',
-TIMEOUT_RETRY: 1000,
-MAX_RETRY: 20,
+timeoutRetry: 1000,
+maxRetries: 20,
 ```
 
 The required values:
 * apiUrl: The api endpoint. Eg. 'https://staging.pickup.dag.haus',
-* TIMEOUT_RETRY: The time in ms between the retry. Eg. 1000,
-* MAX_RETRY: The check max retry before fail. Eg. 20,
+* timeoutRetry: The time in ms between the retry. Eg. 1000,
+* maxRetries: The check max retry before fail. Eg. 20,
 
 The following values are required only to cleanup the bucket and dynamo before the smoke test:
 * region: The AWS region. Eg. 'us-west-2'
