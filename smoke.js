@@ -36,20 +36,29 @@ async function test ({cid, cleanup, verbose}) {
       process.exit(1)
     }
 
+
     if (cleanup) {
       verbose && console.log('Clean up in progress, if the cid already exists delete it')
       // Verify and Delete from Dynamo
       const pinOnDynamoDb = await getPinFromDynamo({ cid }, context)
       if (pinOnDynamoDb) {
-        verbose && console.log('Pin exists on Dynamo, then I delete it')
-        await deletePinFromDynamo({ cid }, context)
+        if(TARGET_ENV === 'prod') {
+          console.warn('Pin exists on Dynamo, cant delete it because env is prod!')  
+        } else {
+          verbose && console.log('Pin exists on Dynamo, then I delete it')
+          await deletePinFromDynamo({ cid }, context)
+        }
       }
 
       // Verify and Delete from S3
       const pinOnS3 = await getFileFromS3({ cid }, context)
       if (pinOnS3) {
-        verbose && console.log('Pin exists on S3, then I delete it')
-        await deleteFileFromS3({ cid }, context)
+        if(TARGET_ENV === 'prod') {
+          console.warn('Pin exists on S3, cant delete it because env is prod!')  
+        } else {
+          verbose && console.log('Pin exists on S3, then I delete it')
+          await deleteFileFromS3({ cid }, context)
+        }
       }
     }
 
@@ -60,7 +69,7 @@ async function test ({cid, cleanup, verbose}) {
     let pickupSuccess = false
     verbose && console.log('Check pin')
 
-    for (let i = 0; (i < context.MAX_RETRY); i++) {
+    for (let i = 0; (i < context.maxRetries); i++) {
       const state = await getPin({ cid }, context)
       if (Object.values(state?.peer_map || []).find(val => val.status === 'pinned')) {
         verbose && console.log('Car found and pinned')
@@ -72,7 +81,7 @@ async function test ({cid, cleanup, verbose}) {
         } else {
           verbose && console.log('Not found, retry')
         }
-        await setTimeoutPromise(context.TIMEOUT_RETRY)
+        await setTimeoutPromise(context.timeoutRetry)
       }
     }
 
